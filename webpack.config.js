@@ -46,6 +46,9 @@ module.exports = (env, argv) => {
   }));
 
   return {
+    resolve: {
+      extensions: [".ts"]
+    },
     entry: [
       path.join(buildPath.src.script, 'main.ts'),
       path.join(buildPath.src.style, 'main.scss')

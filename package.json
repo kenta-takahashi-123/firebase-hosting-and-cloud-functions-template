@@ -8,13 +8,18 @@
   "scripts": {
     "login": "firebase login --reauth",
     "list": "firebase list",
-    "_serve:firebase": "firebase serve --only hosting -o 0.0.0.0",
+    "_build:function": "tsc --project tsconfig.function.json",
+    "_watch:function": "yarn run _build:function --watch --preserveWatchOutput",
+    "_build:hosting": "tsc --project tsconfig.json",
+    "_watch:hosting": "yarn run _build:hosting --watch --preserveWatchOutput",
+    "_serve:script": "npm-run-all --parallel _watch:*",
+    "_serve:firebase": "firebase serve -o 0.0.0.0",
     "_serve:webpack": "webpack --mode development --watch",
     "serve": "npm-run-all --parallel _serve:*",
-    "build:dev": "webpack --mode development",
-    "build:prod": "webpack --mode production",
-    "deploy:dev": "yarn build:dev && firebase use xxxx && firebase deploy --only hosting",
-    "deploy:prod": "yarn build:prod && firebase use yyyy && firebase deploy --only hosting"
+    "build:dev": "yarn run _build:* && webpack --mode development",
+    "build:prod": "yarn run _build:* && webpack --mode production",
+    "deploy:dev": "yarn run build:dev && firebase use xxxx && firebase deploy",
+    "deploy:prod": "yarn run build:prod && firebase use yyyy && firebase deploy"
   },
   "dependencies": {},
   "devDependencies": {

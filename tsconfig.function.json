@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es5",
-    "outDir": "out",
+    "target": "es2017",
+    "outDir": "functions/lib",
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "alwaysStrict": true,
@@ -17,14 +17,12 @@
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
-      "dom"
-    ],
-    "baseUrl": "."
+      "es2017"
+    ]
   },
   "include": [
-    "./src/script/**/*.ts",
-    "./functions/src/shared/**/*.ts"
+    "./shared/src/**/*.ts",
+    "./functions/src/**/*.ts"
   ],
   "exclude": [
     "node_modules",

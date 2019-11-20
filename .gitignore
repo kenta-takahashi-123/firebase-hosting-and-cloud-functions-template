@@ -1,8 +1,15 @@
 node_modules
+
 public/main.js
 public/main.css
 public/fonts
 public/images
 public/**/*.html
 
+functions/**/*.js
+functions/**/*.js.map
+out/**/*.js
+out/**/*.js.map
+
+.firebase
 firebase-debug.log
