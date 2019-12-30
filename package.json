@@ -8,7 +8,8 @@
   "scripts": {
     "login": "firebase login --reauth",
     "list": "firebase list",
-    "_build:function": "tsc --project tsconfig.function.json",
+    "init:function": "cd functions/ && yarn install && cd ..",
+    "_build:function": "yarn run init:function && tsc --project tsconfig.function.json",
     "_watch:function": "yarn run _build:function --watch --preserveWatchOutput",
     "_build:hosting": "tsc --project tsconfig.json",
     "_watch:hosting": "yarn run _build:hosting --watch --preserveWatchOutput",
@@ -16,8 +17,8 @@
     "_serve:firebase": "firebase serve -o 0.0.0.0",
     "_serve:webpack": "webpack --mode development --watch",
     "serve": "npm-run-all --parallel _serve:*",
-    "build:dev": "yarn run _build:* && webpack --mode development",
-    "build:prod": "yarn run _build:* && webpack --mode production",
+    "build:dev": "yarn run _build:function && yarn run _build:hosting && webpack --mode development",
+    "build:prod": "yarn run _build:function && yarn run _build:hosting && webpack --mode production",
     "deploy:dev": "yarn run build:dev && firebase use xxxx && firebase deploy",
     "deploy:prod": "yarn run build:prod && firebase use yyyy && firebase deploy"
   },
@@ -34,14 +35,14 @@
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
     "node-reset-scss": "^1.0.1",
-    "node-sass": "^4.13.0",
     "npm-run-all": "^4.1.5",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
+    "sass": "^1.24.0",
     "sass-loader": "^8.0.0",
+    "terser-webpack-plugin": "^2.3.1",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.2",
-    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   }

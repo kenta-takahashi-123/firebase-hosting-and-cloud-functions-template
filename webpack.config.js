@@ -1,10 +1,15 @@
 const path = require('path');
 const fs = require('fs');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const AutoPrefixer = require('autoprefixer');
+const autoPrefixerTargetBrowsers = [
+  "last 1 versions",
+  "> 1%",
+  "maintained node versions",
+  "not dead"
+];
 
 const buildPath = {
   src: {
@@ -30,6 +35,9 @@ function listFiles(_src) {
 module.exports = (env, argv) => {
   console.log('webpack mode: ' + argv.mode);
   const isDevelopment = argv.mode === 'development';
+
+  console.log("target browsers: ");
+  console.log(require("browserslist")(autoPrefixerTargetBrowsers).map(x => "  - " + x).join("\n"));
 
   const HTMLs = listFiles(buildPath.src.html)
       .filter(x => x.match(/.*\.html$/))
@@ -64,7 +72,10 @@ module.exports = (env, argv) => {
     ].concat(HtmlWebpackPlugins),
     devtool: isDevelopment ? 'inline-source-map' : false,
     optimization: {
-      minimizer: isDevelopment ? [] : [new UglifyJsPlugin({}), new OptimizeCSSAssetsPlugin({})]
+      minimizer: isDevelopment ? [] : [
+        new TerserPlugin(),
+        new OptimizeCSSAssetsPlugin({})
+      ]
     },
     module: {
       rules: [
@@ -90,15 +101,36 @@ module.exports = (env, argv) => {
         {
           test: /\.(css|scss)$/,
           use: [
-            MiniCssExtractPlugin.loader,
-            {loader: 'css-loader'},
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                sourceMap: isDevelopment
+              }
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: isDevelopment
+              }
+            },
             {
               loader: 'postcss-loader',
               options: {
-                plugins: () => [AutoPrefixer]
+                sourceMap: isDevelopment,
+                plugins: () => [
+                  require("autoprefixer")({
+                    browsers: autoPrefixerTargetBrowsers
+                  })
+                ]
               }
             },
-            {loader: 'sass-loader'}
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: isDevelopment,
+                implementation: require('sass')
+              }
+            }
           ]
         }
       ]
