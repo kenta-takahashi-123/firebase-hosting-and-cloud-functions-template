@@ -4,12 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const autoPrefixerTargetBrowsers = [
-  "last 1 versions",
-  "> 1%",
-  "maintained node versions",
-  "not dead"
-];
+const AutoPrefixer = require('autoprefixer');
 
 const buildPath = {
   src: {
@@ -37,7 +32,7 @@ module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development';
 
   console.log("target browsers: ");
-  console.log(require("browserslist")(autoPrefixerTargetBrowsers).map(x => "  - " + x).join("\n"));
+  console.log(require("browserslist")().map(x => "  - " + x).join("\n"));
 
   const HTMLs = listFiles(buildPath.src.html)
       .filter(x => x.match(/.*\.html$/))
@@ -118,9 +113,7 @@ module.exports = (env, argv) => {
               options: {
                 sourceMap: isDevelopment,
                 plugins: () => [
-                  require("autoprefixer")({
-                    browsers: autoPrefixerTargetBrowsers
-                  })
+                  AutoPrefixer
                 ]
               }
             },
