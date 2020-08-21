@@ -26,7 +26,7 @@
   "devDependencies": {
     "@firebase/app-types": "^0.4.7",
     "autoprefixer": "^9.7.1",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^5.0.0-alpha1",
     "css-loader": "^3.2.0",
     "et-line": "^1.0.1",
     "file-loader": "^4.2.0",
