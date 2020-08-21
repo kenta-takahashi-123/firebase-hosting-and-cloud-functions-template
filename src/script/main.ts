@@ -1,3 +1,4 @@
+import 'bootstrap';
 import {User} from "../../functions/src/shared/user";
 
 (() => {
