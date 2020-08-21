@@ -87,7 +87,7 @@ module.exports = (env, argv) => {
           }
         },
         {
-          test: /(fontawesome-webfont|et-line)\.(svg|eot|woff|woff2|ttf)$/,
+          test: /(fontawesome-webfont)\.(svg|eot|woff|woff2|ttf)$/,
           loader: 'file-loader',
           options: {
             name: 'fonts/[name].[ext]'
