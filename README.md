@@ -3,7 +3,8 @@
 ## How to use
 
 1. Push `Use this template` or simply copy and paste this repository files to your repository.
-2. Change `xxxx` and `yyyy` in package.json to your Firebase project ID.
+2. Copy [.firebaserc.template](./.firebaserc.template) as [.firebaserc](./.firebaserc).
+3. Change project ID in .firebaserc to your Firebase project ID.
 
 ## Setup
 
