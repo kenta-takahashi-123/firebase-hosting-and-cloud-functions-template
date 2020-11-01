@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "local":       "xxxxx",
+    "development": "xxxxx",
+    "production":  "xxxxx"
+  }
+}

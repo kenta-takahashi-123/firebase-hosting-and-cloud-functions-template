@@ -14,13 +14,13 @@
     "_build:hosting": "tsc --project tsconfig.json",
     "_watch:hosting": "yarn run _build:hosting --watch --preserveWatchOutput",
     "_serve:script": "npm-run-all --parallel _watch:*",
-    "_serve:firebase": "firebase serve -o 0.0.0.0",
+    "_serve:firebase": "firebase serve --project local",
     "_serve:webpack": "webpack --mode development --watch",
     "serve": "npm-run-all --parallel _serve:*",
     "build:dev": "yarn run _build:function && yarn run _build:hosting && webpack --mode development",
     "build:prod": "yarn run _build:function && yarn run _build:hosting && webpack --mode production",
-    "deploy:dev": "yarn run build:dev && firebase use xxxx && firebase deploy",
-    "deploy:prod": "yarn run build:prod && firebase use yyyy && firebase deploy"
+    "deploy:dev": "yarn run build:dev && firebase deploy --project development",
+    "deploy:prod": "yarn run build:prod && firebase deploy --project production"
   },
   "dependencies": {},
   "devDependencies": {

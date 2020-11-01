@@ -12,4 +12,5 @@ out/**/*.js
 out/**/*.js.map
 
 .firebase
+.firebaserc
 firebase-debug.log
