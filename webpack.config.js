@@ -58,7 +58,7 @@ module.exports = (env, argv) => {
     ],
     output: {
       path: buildPath.destRoot,
-      filename: 'main.js'
+      filename: 'main.js',
     },
     plugins: [
       new MiniCssExtractPlugin({
@@ -112,9 +112,11 @@ module.exports = (env, argv) => {
               loader: 'postcss-loader',
               options: {
                 sourceMap: isDevelopment,
-                plugins: () => [
-                  AutoPrefixer
-                ]
+                postcssOptions: {
+                  plugins: [
+                    [AutoPrefixer, { grid: true }],
+                  ]
+                }
               }
             },
             {
