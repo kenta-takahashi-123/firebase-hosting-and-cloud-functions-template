@@ -98,9 +98,6 @@ module.exports = (env, argv) => {
           use: [
             {
               loader: MiniCssExtractPlugin.loader,
-              options: {
-                sourceMap: isDevelopment
-              }
             },
             {
               loader: 'css-loader',
