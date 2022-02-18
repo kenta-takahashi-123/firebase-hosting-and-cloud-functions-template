@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 const AutoPrefixer = require('autoprefixer');
 
 const buildPath = {
@@ -27,9 +28,15 @@ function listFiles(_src) {
   }).reduce((x, y) => x.concat(y, [])); // flatMap
 }
 
-module.exports = (env, argv) => {
-  console.log('webpack mode: ' + argv.mode);
+module.exports = (values, argv) => {
+  const env = values['NODE_ENV'];
   const isDevelopment = argv.mode === 'development';
+  const envFile = path.resolve(__dirname, '.env.' + env)
+
+  console.log('webpack mode: ' + argv.mode + ', env: ' + env);
+  console.log('env file: ' + envFile)
+  console.log('env contents are here')
+  console.log(require('fs').readFileSync(envFile, 'utf-8'))
 
   console.log("target browsers: ");
   console.log(require("browserslist")().map(x => "  - " + x).join("\n"));
@@ -61,6 +68,7 @@ module.exports = (env, argv) => {
       filename: 'main.js',
     },
     plugins: [
+      new Dotenv({path: envFile}),
       new MiniCssExtractPlugin({
         filename: 'main.css',
       })
