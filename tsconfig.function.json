@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es2017",
-    "outDir": "functions/lib",
+    "outDir": "functions/build",
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "alwaysStrict": true,
