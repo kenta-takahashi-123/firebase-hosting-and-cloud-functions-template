@@ -81,16 +81,16 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(jpg|png|svg)$/,
-          loader: 'file-loader',
-          options: {
-            name: 'images/[name].[ext]'
+          type: 'asset/resource',
+          generator: {
+            filename: 'images/[name].[ext]'
           }
         },
         {
           test: /(fontawesome-webfont)\.(svg|eot|woff|woff2|ttf)$/,
-          loader: 'file-loader',
-          options: {
-            name: 'fonts/[name].[ext]'
+          type: 'asset/resource',
+          generator: {
+            filename: 'fonts/[name].[ext]'
           },
         },
         {
