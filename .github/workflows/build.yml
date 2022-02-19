@@ -44,5 +44,9 @@ jobs:
       - name: Run yarn install
         run: yarn install
 
+      - name: Create config.ts
+        run: cp functions/src/shared/config/config-template.ts functions/src/shared/config/config.ts
+        shell: bash
+
       - name: Run yarn build:prod
         run: yarn run build:prod

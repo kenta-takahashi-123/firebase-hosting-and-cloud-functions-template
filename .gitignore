@@ -11,3 +11,5 @@ public/**/*.html
 .firebaserc
 .env.local
 firebase-debug.log
+
+functions/src/shared/config/config.ts
