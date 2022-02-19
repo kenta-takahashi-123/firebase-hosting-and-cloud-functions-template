@@ -1,6 +1,7 @@
 export class Env {
 
   private static getProjectId = () => {
+    // See: https://firebase.google.com/docs/functions/config-env?hl=ja#automatically_populated_environment_variables
     return JSON.parse(process.env.FIREBASE_CONFIG as string)["projectId"];
   }
 
@@ -15,11 +16,7 @@ export class Env {
     }
   }
 
-  static readonly region = "asia-northeast1"
   static readonly projectId = Env.getProjectId()
-
-  static readonly authEmulatorHost = process.env.FIREBASE_AUTH_EMULATOR_HOST
-  static readonly firestoreEmulatorHost = process.env.FIRESTORE_EMULATOR_HOST
   static readonly value: "production" | "development" | "local" = Env.getValue()
 
 }
