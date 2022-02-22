@@ -5,6 +5,7 @@ public/main.js
 public/main.css
 public/fonts
 public/images
+public/static
 public/**/*.html
 
 .firebase

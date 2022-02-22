@@ -13,14 +13,21 @@ export type ErrorResponse = { status: 400, message: string, code: "INVALID_PARAM
 
 export class Response {
 
-  static success(request: functions.https.Request, response: express.Response, body?: object) {
+  private static send(request: functions.https.Request, response: express.Response, status: number, contentType: string, body: any) {
     Response.setResponseHeaders(response, Response.getAcceptedOrigin(request));
-    response.status(200).contentType('application/json').send(body)
+    response.status(status).contentType(contentType).send(body)
+  }
+
+  static successAsRaw(request: functions.https.Request, response: express.Response, contentType: string, body: any) {
+    Response.send(request, response, 200, contentType, body)
+  }
+
+  static success(request: functions.https.Request, response: express.Response, body?: object) {
+    Response.send(request, response, 200, 'application/json', body)
   }
 
   static error(request: functions.https.Request, response: express.Response, error: ErrorResponse) {
-    Response.setResponseHeaders(response, Response.getAcceptedOrigin(request));
-    response.status(error.status).contentType('application/json').send(error)
+    Response.send(request, response, error.status, 'application/json', error)
   }
 
   static exception(request: functions.https.Request, response: express.Response, e: Error) {
