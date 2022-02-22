@@ -6,6 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const AutoPrefixer = require('autoprefixer');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const buildPath = {
   src: {
@@ -68,6 +69,11 @@ module.exports = (values, argv) => {
       filename: 'main.js',
     },
     plugins: [
+      new CopyWebpackPlugin({
+        patterns: [
+          {from: 'src/static', to: 'static'}
+        ]
+      }),
       new Dotenv({path: envFile}),
       new MiniCssExtractPlugin({
         filename: 'main.css',
